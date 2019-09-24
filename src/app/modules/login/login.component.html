@@ -1,0 +1,35 @@
+<div style="background-image:url('assets/dist/img/gg.jpg');height:100vh; display:flex;">
+  <div class="login-box login-page">
+    <div class="login-box-body">
+      <div class="login-logo">
+          <a href="Javascript:void(0)"><img src="assets/dist/img/soa_logo.png" width="200px"></a>
+      </div>
+      <p class="login-box-msg">Sign in to start your session</p>
+      <form [formGroup]="myform" (ngSubmit)="submitForm(myform.value)" novalidate>
+        <div *ngIf="apiError.err" class="alert alert-danger">
+          <strong>Error: </strong> {{apiError.message}}
+        </div>
+        <div class="form-group has-feedback">
+          <input type="email" class="form-control" placeholder="Email" formControlName="email" required>
+          <p *ngIf="myform.controls.email.touched && myform.controls.email.hasError('required')" class="errMsg">Email is <strong>required</strong></p>
+          <p *ngIf="myform.controls.email.hasError('email') && !myform.controls.email.hasError('required')" class="errMsg">Please enter a valid email address</p>
+        </div>
+        <div class="form-group has-feedback">
+          <input type="password" class="form-control" placeholder="Password" formControlName="password" required>
+          <p *ngIf="myform.controls.password.touched && myform.controls.password.hasError('required')" class="errMsg">Password is <strong>required</strong></p>
+          <p *ngIf="myform.controls.password.hasError('minlength') || myform.controls.password.hasError('maxlength')" class="errMsg">Password must be in 6 to 15 characters</p>
+        </div>
+        <div class="row">
+          <!-- /.col -->
+          <div class="col-xs-4">
+            <button type="submit" class="btn btn-primary btn-block btn-flat" [disabled]="!myform.valid">LOGIN</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+      <!-- /.social-auth-links -->
+      <a [routerLink]="['/register']" class="text-center">Register as new user</a>
+    </div>
+    <!-- /.login-box-body -->
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="content-wrapper">
+    <section id="post" class="content">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Update Profile</h3>
+                    </div>
+                    <form class="form-horizontal" [formGroup]="myform" (ngSubmit)="UpdateProfile(myform.value)" novalidate>
+                      <div *ngIf="apiError.err" class="alert alert-danger">
+                          <strong>Error: </strong> {{apiError.message}}
+                      </div>
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="Full name" formControlName="name" [(ngModel)]="userData.name" required>
+                            <p *ngIf="myform.controls.name.touched && myform.controls.name.hasError('required')" class="errMsg">Name is <strong>required</strong></p>
+                            <p *ngIf="myform.controls.name.hasError('minlength') || myform.controls.name.hasError('maxlength')" class="errMsg">Name must be in 1 to 20 characters</p>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                          <div class="col-sm-10">
+                            <input type="email" class="form-control" placeholder="Email" formControlName="email" [(ngModel)]="userData.email" required>
+                            <p *ngIf="myform.controls.email.touched && myform.controls.email.hasError('required')" class="errMsg">Email is <strong>required</strong></p>
+                            <p *ngIf="myform.controls.email.hasError('email') && !myform.controls.email.hasError('required')" class="errMsg">Please enter a valid email address</p>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-sm-2 control-label">Phone</label>
+                          <div class="col-sm-10">
+                            <input type="number" class="form-control" placeholder="Phone" formControlName="phone" [(ngModel)]="userData.phone" required>
+                            <p *ngIf="myform.controls.phone.touched && myform.controls.phone.hasError('required')" class="errMsg">Phone is <strong>required</strong></p>
+                            <p *ngIf="myform.controls.phone.hasError('minlength') || myform.controls.phone.hasError('maxlength')" class="errMsg">Phone must be in 1 to 10 characters</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.box-body -->
+                      <div class="box-footer">
+                        <button type="submit" class="btn btn-info pull-right" [disabled]="!myform.valid">Edit</button>
+                      </div>
+                      <!-- /.box-footer -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

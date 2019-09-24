@@ -1,0 +1,75 @@
+<style type="text/css">
+  #myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+  }
+  .content1 {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+</style>
+
+<div class="content1" style="background:#d2d6de;height:100vh; display:flex;">
+  <video id="myVideo" loop muted #videoPlayer (click)="doSomething()">
+    <source src="assets/dist/img/typing.mp4" type="video/mp4">
+  </video>
+<div class="register-box" style="z-index:1;">
+  
+
+  <div class="register-box-body">
+    <div class="register-logo" style="margin-top:-27px !important">
+    <a href="Javascript:void(0)"><img src="assets/dist/img/soa_logo.png" width="200px"></a>
+  </div>
+    <p class="login-box-msg">Register as new user</p>
+
+    <form [formGroup]="myform" (ngSubmit)="Register(myform.value)" novalidate>
+      <div *ngIf="apiError.err" class="alert alert-danger">
+        <strong>Error: </strong> {{apiError.message}}
+      </div>
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="Full name" formControlName="name" required>
+        <p *ngIf="myform.controls.name.touched && myform.controls.name.hasError('required')" class="errMsg">Name is <strong>required</strong></p>
+          <p *ngIf="myform.controls.name.hasError('minlength') || myform.controls.name.hasError('maxlength')" class="errMsg">Name must be in 1 to 20 characters</p>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="email" class="form-control" placeholder="Email" formControlName="email" required>
+        <p *ngIf="myform.controls.email.touched && myform.controls.email.hasError('required')" class="errMsg">Email is <strong>required</strong></p>
+          <p *ngIf="myform.controls.email.hasError('email') && !myform.controls.email.hasError('required')" class="errMsg">Please enter a valid email address</p>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" placeholder="Password" formControlName="password" required>
+        <p *ngIf="myform.controls.password.touched && myform.controls.password.hasError('required')" class="errMsg">Password is <strong>required</strong></p>
+          <p *ngIf="myform.controls.password.hasError('minlength') || myform.controls.password.hasError('maxlength')" class="errMsg">Password must be in 6 to 15 characters</p>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="number" class="form-control" placeholder="Phone" formControlName="phone" required>
+        <p *ngIf="myform.controls.phone.touched && myform.controls.phone.hasError('required')" class="errMsg">Phone is <strong>required</strong></p>
+          <p *ngIf="myform.controls.phone.hasError('minlength') || myform.controls.phone.hasError('maxlength')" class="errMsg">Phone must be in 1 to 10 characters</p>
+      </div>
+      <div class="form-group">
+        <input type="radio" formControlName="gender" value="Male" required> Male
+        <input type="radio" formControlName="gender" value="Female" required> Female
+        <p *ngIf="myform.controls.gender.touched && myform.controls.gender.hasError('required')" class="errMsg">Gender is <strong>required</strong></p>
+      </div>
+      <div class="row">
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat" [disabled]="!myform.valid">Register</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+
+    <a [routerLink]="['/login']" href="javascript:void(0)" class="text-center">I already have a membership</a>
+  </div>
+  <!-- /.form-box -->
+</div>
+<!-- /.register-box -->
+</div>

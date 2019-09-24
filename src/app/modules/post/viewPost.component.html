@@ -1,0 +1,61 @@
+<div class="content-wrapper">
+    <section id="post" class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Post Details</h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                  <th>Media</th>
+                                  <td *ngIf="post.media_type === 'Image'">
+                                    <img width="320" height="240" [src]="post.media" />
+                                  </td>
+                                  <td *ngIf="post.media_type === 'Video'">
+                                    <vg-player style="width:76%">
+                                      <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
+                                          <source src="{{post.media}}" type="video/mp4">
+                                      </video>
+                                    </vg-player>
+                                  </td>
+                                  <td *ngIf="post.media_type === 'Audio'">
+                                    <vg-player>
+                                      <audio #media [vgMedia]="media" id="myAudio" preload="auto" controls>
+                                        <source src="{{post.media}}" type="audio/mpeg">
+                                      </audio>
+                                    </vg-player>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>Status</th>
+                                  <td *ngIf="post.status==='Pending'"><span class="label label-warning">{{post.status}}</span></td>
+                                  <td *ngIf="post.status==='Approved'"><span class="label label-success">{{post.status}}</span></td>
+                                  <td *ngIf="post.status==='Rejected'"><span class="label label-danger">{{post.status}}</span></td>
+                                </tr>
+                                <tr>
+                                  <th>Title</th>
+                                  <td>{{post.title}}</td>
+                                </tr>
+                                <tr>
+                                  <th>Description</th>
+                                  <td style="word-break: break-all;">{{post.description}}</td>
+                                </tr>
+                                <tr>
+                                  <th>Media Tool</th>
+                                  <td>{{post.offender_social_info}}</td>
+                                </tr>
+                                <tr>
+                                  <th>Offender</th>
+                                  <td>{{post.offender_user_info}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

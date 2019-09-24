@@ -1,0 +1,19 @@
+<div class="wrapper">
+
+    <!-- navbar -->
+    <div data-ng-include=" 'app/layout/blocks/header.html' "></div>
+    <!-- / navbar -->
+
+    <!-- menu -->
+    <div data-ng-include=" 'app/layout/blocks/aside.html' "></div>
+    <!-- / menu -->
+
+    <!-- content -->
+    <router-outlet></router-outlet>
+    <!-- /content -->
+
+    <div data-ng-include=" '/app/layout/blocks/footer.html' "></div>
+
+    <div class="control-sidebar-bg"></div>
+
+</div> <!-- /.wrapper -->

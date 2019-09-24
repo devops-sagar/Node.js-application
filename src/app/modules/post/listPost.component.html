@@ -1,0 +1,77 @@
+<div class="content-wrapper">
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Post List</h3>
+
+            <div class="box-tools">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <input name="table_search" class="form-control pull-right" placeholder="Search" type="text" [(ngModel)]="filter">
+
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-tools" style="right:140px; top:5px;">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <label> 
+                  <select name="example1_length" (change)="getPostByStatus($event.target.value)" aria-controls="example1" class="form-control input-sm">
+                    <option value="1">Pending</option>
+                    <option value="2">Approved</option>
+                    <option value="3">Rejected</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Media</th>
+                  <th>Title</th>
+                  <th>Status</th>
+                  <th>Description</th>
+                  <th>Date</th>
+                  <th>View</th>
+                  <th *ngIf="user_type === 'admin'">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let post of posts | filter:filter | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                  <td>{{post.id}}</td>
+                  <td>
+                    <img *ngIf="post.media_type === 'Image'" [src]="post.media" width="100" height="100">
+                    <img *ngIf="post.media_type === 'Video'" src="assets/dist/img/video.jpeg" width="100" height="100">
+                    <img *ngIf="post.media_type === 'Audio'" src="assets/dist/img/audio.png" height="100">
+                  </td>
+                  <td>{{post.title}}</td>
+                  <td *ngIf="post.status==='Pending'"><span class="label label-warning">{{post.status}}</span></td>
+                  <td *ngIf="post.status==='Approved'"><span class="label label-success">{{post.status}}</span></td>
+                  <td *ngIf="post.status==='Rejected'"><span class="label label-danger">{{post.status}}</span></td>
+                  <td class="threeDots">{{post.description}}</td>
+                  <td>{{post.created_at}}</td>
+                  <td><a [routerLink]="['/viewPost', post.id]" href="javascript:void(0)"><i class="fa fa-eye"></i></a></td>
+                  <td *ngIf="user_type === 'admin'">
+                    <button *ngIf="post.status === 'Pending'" type="button" class="btn btn-success btn-xs" (click)="SetPostStatus(post.id, 2)">Approve</button>
+                    <button *ngIf="post.status === 'Pending'" type="button" class="btn btn-danger btn-xs" (click)="SetPostStatus(post.id, 3)">Reject</button>
+                  </td>
+                </tr>
+              </tbody>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+    </div>
+  </section>
+</div>
